@@ -2,7 +2,9 @@
 
 > 🎓 **Final Year Project**
 > 
-> This repository contains my Final Year Project: a real-time object detection, classification, and visual analytics application developed using a YOLO detector, Python, Pandas, and Streamlit.
+> **Live Demo:** [https://object-detection-with-yolo-project.streamlit.app/](https://object-detection-with-yolo-project.streamlit.app/)
+> 
+> This is a Final Year Project implementing a real-time 2D object detection, classification, and visual analytics dashboard using a YOLO detector, Python, Pandas, and Streamlit.
 
 ---
 

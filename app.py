@@ -157,6 +157,14 @@ if st.sidebar.button("🗑️ Clear Analytics Logs", use_container_width=True):
     )
     st.sidebar.success("Session logs cleared!")
 
+# About Section
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🎓 About Project")
+st.sidebar.markdown(
+    "**Object Detection using YOLO** is a Final Year Project. It implements real-time 2D object detection, classification, and visual analytics."
+    "\n\n**Live Link:** [streamlit.app](https://object-detection-with-yolo-project.streamlit.app/)"
+)
+
 # Main Title Header
 st.markdown("<div class='title-text'>🔍 YOLOv8 Detection & Analytics Suite</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle-text'>A powerful real-time deep learning computer vision dashboard with Pandas-driven insights.</div>", unsafe_allow_html=True)
