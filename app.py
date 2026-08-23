@@ -163,6 +163,97 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Serve the landing experience before initializing the model-heavy workspace.
+if "show_workspace" not in st.session_state:
+    st.session_state["show_workspace"] = False
+
+if not st.session_state["show_workspace"]:
+    st.markdown("""
+    <style>
+        section[data-testid="stSidebar"] { display: none !important; }
+        [data-testid="stAppViewContainer"] { background: #f5fbf8 !important; }
+        [data-testid="stAppViewContainer"] .block-container {
+            max-width: 1040px !important;
+            padding-top: 3.4rem !important;
+            padding-bottom: 4.5rem !important;
+        }
+        .landing-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 6rem; color: #102d32;
+        }
+        .landing-brand { display: flex; align-items: center; gap: 10px; }
+        .landing-mark {
+            position: relative; width: 31px; height: 31px; box-sizing: border-box;
+            border: 2px solid #0f766e; border-right-color: transparent;
+            border-bottom-color: transparent;
+        }
+        .landing-mark:after {
+            content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%;
+            top: 10px; left: 10px; background: #f4755c; box-shadow: 0 0 0 3px rgba(244,117,92,.12);
+        }
+        .landing-brand strong { display: block; font-size: 0.82rem; letter-spacing: .12em; }
+        .landing-brand small { display: block; margin-top: 1px; color: #188076; font-size: .53rem; font-weight: 700; letter-spacing: .16em; }
+        .landing-nav span { color: #597274; font-size: .75rem; font-weight: 600; }
+        .landing-hero { max-width: 680px; margin: 0 auto; text-align: center; }
+        .landing-kicker {
+            display: inline-block; border: 1px solid rgba(15,118,110,.14); border-radius: 999px;
+            padding: 8px 13px; background: white; color: #14756d; font-size: .62rem;
+            font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+            box-shadow: 0 12px 28px rgba(12,82,83,.06);
+        }
+        .landing-hero h1 {
+            margin: 1.7rem 0 .8rem; color: #112b30; font-family: 'DM Serif Display', serif;
+            font-size: clamp(3.8rem, 9vw, 7.5rem); font-weight: 500; line-height: .79; letter-spacing: -.07em;
+        }
+        .landing-hero h1 em { color: #0d9488; font-style: normal; }
+        .landing-hero p { max-width: 500px; margin: 1.5rem auto 1.8rem; color: #60777a; font-size: 1rem; line-height: 1.65; }
+        .landing-flow {
+            display: grid; grid-template-columns: 1.35fr .65fr; gap: 14px; margin-top: 4.5rem;
+            padding: 14px; border: 1px solid rgba(15,118,110,.11); border-radius: 26px;
+            background: rgba(255,255,255,.88); box-shadow: 0 28px 70px rgba(12,82,83,.13); text-align: left;
+        }
+        .landing-steps { padding: 18px; border-radius: 18px; background: #f4fbf8; }
+        .landing-steps > span, .landing-review > span { color: #14756d; font-size: .6rem; font-weight: 700; letter-spacing: .12em; }
+        .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 14px; }
+        .step-card { min-height: 122px; border: 1px solid; border-radius: 13px; padding: 13px; }
+        .step-card b, .step-card strong, .step-card small { display: block; }.step-card b { font-size: .58rem; opacity: .7; }.step-card strong { margin-top: 21px; font-size: .96rem; }.step-card small { margin-top: 4px; font-size: .64rem; opacity: .72; }
+        .step-source { border-color: #f0dfbd; background: #fff9ed; color: #a26918; }.step-review { border-color: #cce9e3; background: #ecfaf6; color: #14756d; }.step-export { border-color: #123f46; background: #06343d; color: #effaf8; }
+        .landing-review { border-radius: 18px; padding: 23px 20px; background: #06343d; color: white; }.landing-review h2 { margin: 12px 0 21px; font-family: 'DM Serif Display', serif; font-size: 1.7rem; line-height: .98; letter-spacing: -.045em; }.review-point { margin-top: 8px; border: 1px solid rgba(255,255,255,.1); border-radius: 9px; padding: 8px; background: rgba(255,255,255,.06); color: #e7f7f4; font-size: .68rem; font-weight: 600; }
+        @media(max-width: 640px) { .landing-nav { margin-bottom: 3.5rem; }.landing-nav span { display: none; }.landing-flow { grid-template-columns: 1fr; }.landing-hero h1 { font-size: 4.3rem; }.step-card { min-height: 105px; padding: 10px; }.step-card strong { margin-top: 17px; font-size: .82rem; } }
+    </style>
+    <div class="landing-nav">
+        <div class="landing-brand"><div class="landing-mark"></div><div><strong>DETECTFRAME</strong><small>VISION REVIEW</small></div></div>
+        <span>Human-guided computer vision</span>
+    </div>
+    <div class="landing-hero">
+        <div class="landing-kicker">Evidence-led object detection</div>
+        <h1>Images,<br><em>made legible.</em></h1>
+        <p>From raw frames to reviewed evidence. Keep every model signal visible, understandable, and under your control.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    _, enter_column, _ = st.columns([1.1, 1, 1.1])
+    with enter_column:
+        if st.button("Enter review workspace  →", key="enter_workspace", use_container_width=True):
+            st.session_state["show_workspace"] = True
+            st.rerun()
+
+    st.markdown("""
+    <div class="landing-flow">
+        <div class="landing-steps"><span>EVIDENCE FLOW</span><div class="step-grid">
+            <div class="step-card step-source"><b>01</b><strong>Frame</strong><small>Temporary source</small></div>
+            <div class="step-card step-review"><b>02</b><strong>Review</strong><small>Human in the loop</small></div>
+            <div class="step-card step-export"><b>03</b><strong>Evidence</strong><small>Confirmed output</small></div>
+        </div></div>
+        <div class="landing-review"><span>REVIEW STATUS</span><h2>Nothing leaves the frame without you.</h2>
+            <div class="review-point">Class and confidence remain visible</div>
+            <div class="review-point">Uncertain signals stay inspectable</div>
+            <div class="review-point">Export follows deliberate review</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.stop()
+
 # Define Sample Media URLs
 SAMPLE_IMAGE_URL = "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg"
 SAMPLE_VIDEO_URL = "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/shuttle.mp4"
@@ -184,6 +275,10 @@ if "analytics_log" not in st.session_state:
     )
 
 # Sidebar Configuration
+if st.sidebar.button("← Landing page", use_container_width=True):
+    st.session_state["show_workspace"] = False
+    st.rerun()
+
 st.sidebar.markdown("<h2 style='text-align: center;'>⚙️ Control Panel</h2>", unsafe_allow_html=True)
 
 # 1. Model Selection
