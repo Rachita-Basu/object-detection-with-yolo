@@ -15,58 +15,152 @@ from detector import YoloDetector
 
 # Set Streamlit Page Configuration
 st.set_page_config(
-    page_title="YOLOv8 Object Detection & Real-time Analytics Suite",
+    page_title="Object Detection with YOLO - Made Clear",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom Premium Styling
+# Custom Premium Styling (ClinicOCR-inspired UI)
 st.markdown("""
 <style>
-    /* Custom Fonts and Title Gradients */
-    .title-text {
-        font-family: 'Outfit', 'Inter', sans-serif;
-        background: linear-gradient(135deg, #FF4B4B 0%, #FF8F8F 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800;
-        font-size: 2.8rem;
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    /* Global Body Overrides */
+    .stApp {
+        background-color: #f8fafc !important; /* Slate-50 */
+        color: #0f172a !important; /* Slate-900 */
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Sidebar Custom Styling */
+    section[data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        border-right: 1px solid #e2e8f0 !important;
+    }
+
+    /* Brand Header */
+    .brand-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
+    .brand-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0f766e; /* Teal-700 */
+        color: #ffffff;
+        font-weight: bold;
+        border-radius: 12px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.25rem;
+        box-shadow: 0 4px 14px rgba(15, 118, 110, 0.2);
+    }
+    .brand-title {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1;
+        color: #0f172a;
+    }
+    .brand-subtitle {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #0d9488; /* Teal-600 */
+        margin-top: 1px;
+    }
+
+    /* Hero Editorial Heading */
+    .hero-heading {
+        font-family: 'DM Serif Display', serif;
+        font-size: 3.8rem;
+        font-weight: 500;
+        line-height: 0.88;
+        letter-spacing: -0.05em;
+        color: #0f172a;
+        margin-top: 0.5rem;
         margin-bottom: 0.5rem;
     }
-    .subtitle-text {
+    .hero-heading-teal {
+        color: #0d9488; /* Teal-600 */
+    }
+    .hero-subtitle {
         font-family: 'Inter', sans-serif;
-        color: #888888;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+        color: #64748b; /* Slate-500 */
         margin-bottom: 2rem;
     }
-    
-    /* Card design */
-    .metric-card {
-        background-color: #1e2130;
-        border-radius: 10px;
-        padding: 1.5rem;
-        border: 1px solid #2e324a;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Clinic-style Cards */
+    .clinic-card {
+        background-color: #ffffff;
+        border: 1px solid rgba(15, 118, 110, 0.08);
+        border-radius: 1.6rem;
+        padding: 1.8rem;
+        box-shadow: 0 25px 70px rgba(12, 82, 83, 0.05);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Evidence Steps Metrics */
+    .evidence-step {
+        border: 1px solid rgba(15, 118, 110, 0.08);
+        background-color: #ffffff;
+        border-radius: 1.3rem;
+        padding: 1.3rem;
+        box-shadow: 0 15px 40px rgba(12, 82, 83, 0.03);
         text-align: center;
-        transition: transform 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
-    .metric-card:hover {
+    .evidence-step:hover {
         transform: translateY(-2px);
-        border-color: #ff4b4b;
+        box-shadow: 0 25px 50px rgba(12, 82, 83, 0.08);
     }
-    
-    /* Status classes */
-    .success-badge {
-        background-color: rgba(46, 204, 113, 0.15);
-        color: #2ecc71;
+    .evidence-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
         padding: 4px 10px;
-        border-radius: 15px;
-        font-size: 0.85rem;
-        font-weight: bold;
+        border-radius: 10px;
+    }
+    .label-cyan {
+        background-color: #f0fdfa;
+        color: #0f766e;
+    }
+    .label-amber {
+        background-color: #fffbeb;
+        color: #b45309;
+    }
+    .label-slate {
+        background-color: #f8fafc;
+        color: #475569;
+    }
+
+    /* Custom Input and Layout overrides */
+    div.stButton > button {
+        background-color: #0f766e !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 8px 24px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.15) !important;
+        transition: all 0.2s !important;
+    }
+    div.stButton > button:hover {
+        background-color: #0d9488 !important;
+        box-shadow: 0 6px 18px rgba(15, 118, 110, 0.25) !important;
+        transform: translateY(-1px) !important;
     }
 </style>
-""", unsafe_allow_html=True)
 
 # Define Sample Media URLs
 SAMPLE_IMAGE_URL = "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg"
@@ -165,9 +259,20 @@ st.sidebar.markdown(
     "\n\n**Live Link:** [streamlit.app](https://object-detection-with-yolo-project.streamlit.app/)"
 )
 
-# Main Title Header
-st.markdown("<div class='title-text'>🔍 YOLOv8 Detection & Analytics Suite</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle-text'>A powerful real-time deep learning computer vision dashboard with Pandas-driven insights.</div>", unsafe_allow_html=True)
+# Brand Header
+st.markdown("""
+<div class='brand-header'>
+    <div class='brand-logo'>+</div>
+    <div class='leading-none'>
+        <span class='brand-title'>YOLO-Detect</span>
+        <div class='brand-subtitle'>Object Intelligence</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Main Title Header (ClinicOCR layout style)
+st.markdown("<div class='hero-heading'>Object detection,<br><span class='hero-heading-teal'>made clear.</span></div>", unsafe_allow_html=True)
+st.markdown("<div class='hero-subtitle'>A real-time deep learning computer vision dashboard with Pandas-driven logs and interactive analytics.</div>", unsafe_allow_html=True)
 
 # Tabs Configuration
 tab_image, tab_video, tab_webcam, tab_analytics = st.tabs([
@@ -233,12 +338,27 @@ with tab_image:
         st.subheader("📊 Statistics & Logs")
         col_m1, col_m2, col_m3 = st.columns(3)
         with col_m1:
-            st.metric("Total Objects Detected", len(df_dets))
+            st.markdown(f"""
+            <div class='evidence-step'>
+                <span class='evidence-label label-cyan'>Detections</span>
+                <h3 style='color:#0f766e; font-family: "DM Serif Display", serif; font-size: 2.2rem; margin: 8px 0 0 0;'>{len(df_dets)}</h3>
+            </div>
+            """, unsafe_allow_html=True)
         with col_m2:
-            st.metric("Inference Latency", f"{latency:.1f} ms")
+            st.markdown(f"""
+            <div class='evidence-step'>
+                <span class='evidence-label label-amber'>Latency</span>
+                <h3 style='color:#b45309; font-family: "DM Serif Display", serif; font-size: 2.2rem; margin: 8px 0 0 0;'>{latency:.1f} ms</h3>
+            </div>
+            """, unsafe_allow_html=True)
         with col_m3:
             avg_conf = df_dets["confidence"].mean() if not df_dets.empty else 0.0
-            st.metric("Average Confidence", f"{avg_conf:.2%}")
+            st.markdown(f"""
+            <div class='evidence-step'>
+                <span class='evidence-label label-slate'>Avg Confidence</span>
+                <h3 style='color:#475569; font-family: "DM Serif Display", serif; font-size: 2.2rem; margin: 8px 0 0 0;'>{avg_conf:.1%}</h3>
+            </div>
+            """, unsafe_allow_html=True)
             
         # Detections Pandas DataFrame Table
         if not df_dets.empty:
@@ -516,23 +636,26 @@ with tab_analytics:
         col_met1, col_met2, col_met3 = st.columns(3)
         with col_met1:
             st.markdown(f"""
-            <div class='metric-card'>
-                <h4>Total Detections Logged</h4>
-                <h2 style='color:#ff4b4b;'>{total_records}</h2>
+            <div class='evidence-step'>
+                <span class='evidence-label label-cyan'>Total Logs</span>
+                <p style='margin-top: 10px; font-size: 0.85rem; color: #64748b;'>Total Detections Logged</p>
+                <h2 style='color:#0f766e; font-family: "DM Serif Display", serif; font-size: 2.5rem; margin: 5px 0;'>{total_records}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_met2:
             st.markdown(f"""
-            <div class='metric-card'>
-                <h4>Unique Class Categories</h4>
-                <h2 style='color:#3498db;'>{unique_classes}</h2>
+            <div class='evidence-step'>
+                <span class='evidence-label label-amber'>Categories</span>
+                <p style='margin-top: 10px; font-size: 0.85rem; color: #64748b;'>Unique Class Categories</p>
+                <h2 style='color:#b45309; font-family: "DM Serif Display", serif; font-size: 2.5rem; margin: 5px 0;'>{unique_classes}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_met3:
             st.markdown(f"""
-            <div class='metric-card'>
-                <h4>Average Detection Confidence</h4>
-                <h2 style='color:#2ecc71;'>{avg_confidence:.1%}</h2>
+            <div class='evidence-step'>
+                <span class='evidence-label label-slate'>Mean Score</span>
+                <p style='margin-top: 10px; font-size: 0.85rem; color: #64748b;'>Average Confidence</p>
+                <h2 style='color:#475569; font-family: "DM Serif Display", serif; font-size: 2.5rem; margin: 5px 0;'>{avg_confidence:.1%}</h2>
             </div>
             """, unsafe_allow_html=True)
             
