@@ -161,6 +161,7 @@ st.markdown("""
         transform: translateY(-1px) !important;
     }
 </style>
+""", unsafe_allow_html=True)
 
 # Define Sample Media URLs
 SAMPLE_IMAGE_URL = "https://raw.githubusercontent.com/ultralytics/ultralytics/main/ultralytics/assets/bus.jpg"
