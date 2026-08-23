@@ -160,6 +160,26 @@ st.markdown("""
         box-shadow: 0 6px 18px rgba(15, 118, 110, 0.25) !important;
         transform: translateY(-1px) !important;
     }
+    /* Explicit Streamlit control contrast for the light dashboard surface. */
+    div[data-baseweb="select"] > div {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 9px !important;
+        color: #0f172a !important;
+    }
+    div[data-baseweb="select"] input,
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; }
+    div[data-baseweb="select"] svg { fill: #0f766e !important; color: #0f766e !important; }
+    [data-baseweb="popover"] { background: #ffffff !important; color: #0f172a !important; }
+    [data-baseweb="popover"] * { color: #0f172a !important; }
+    [data-testid="stSidebar"] [data-baseweb="slider"] [role="slider"] { background: #f4755c !important; border-color: #f4755c !important; }
+    [data-testid="stSidebar"] [data-baseweb="slider"] div[role="progressbar"] { background: #f4755c !important; }
+    [data-testid="stSidebar"] [data-baseweb="slider"] div[role="progressbar"] > div { background: #f4755c !important; }
+    [data-testid="stSidebar"] [data-testid="stCheckbox"] label span,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label p { color: #334155 !important; }
+    button[role="tab"] { color: #64748b !important; font-weight: 600 !important; }
+    button[role="tab"][aria-selected="true"] { color: #0f766e !important; border-bottom-color: #f4755c !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -219,6 +239,19 @@ if not st.session_state["show_workspace"]:
         .step-card b, .step-card strong, .step-card small { display: block; }.step-card b { font-size: .58rem; opacity: .7; }.step-card strong { margin-top: 21px; font-size: .96rem; }.step-card small { margin-top: 4px; font-size: .64rem; opacity: .72; }
         .step-source { border-color: #f0dfbd; background: #fff9ed; color: #a26918; }.step-review { border-color: #cce9e3; background: #ecfaf6; color: #14756d; }.step-export { border-color: #123f46; background: #06343d; color: #effaf8; }
         .landing-review { border-radius: 18px; padding: 23px 20px; background: #06343d; color: white; }.landing-review h2 { margin: 12px 0 21px; font-family: 'DM Serif Display', serif; font-size: 1.7rem; line-height: .98; letter-spacing: -.045em; }.review-point { margin-top: 8px; border: 1px solid rgba(255,255,255,.1); border-radius: 9px; padding: 8px; background: rgba(255,255,255,.06); color: #e7f7f4; font-size: .68rem; font-weight: 600; }
+        @keyframes landing-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes landing-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(244,117,92,.12); } 50% { box-shadow: 0 0 0 8px rgba(244,117,92,.04); } }
+        @keyframes landing-sweep { from { background-position: -180px 0; } to { background-position: 460px 0; } }
+        .landing-nav { animation: landing-rise .55s cubic-bezier(.22,1,.36,1) both; }
+        .landing-kicker { animation: landing-rise .55s .1s cubic-bezier(.22,1,.36,1) both; }
+        .landing-hero h1 { animation: landing-rise .65s .18s cubic-bezier(.22,1,.36,1) both; }
+        .landing-hero p { animation: landing-rise .6s .29s cubic-bezier(.22,1,.36,1) both; }
+        .landing-mark:after { animation: landing-pulse 2.8s ease-in-out infinite; }
+        .landing-flow { animation: landing-rise .68s .42s cubic-bezier(.22,1,.36,1) both; }
+        .step-card { animation: landing-rise .45s cubic-bezier(.22,1,.36,1) both; }
+        .step-card:nth-child(1) { animation-delay: .62s; }.step-card:nth-child(2) { animation-delay: .71s; }.step-card:nth-child(3) { animation-delay: .8s; }
+        .landing-review { background-image: linear-gradient(110deg, #06343d 25%, #0a4852 48%, #06343d 68%); background-size: 460px 100%; animation: landing-sweep 5.5s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .landing-nav, .landing-kicker, .landing-hero h1, .landing-hero p, .landing-flow, .step-card, .landing-mark:after, .landing-review { animation: none !important; } }
         @media(max-width: 640px) { .landing-nav { margin-bottom: 3.5rem; }.landing-nav span { display: none; }.landing-flow { grid-template-columns: 1fr; }.landing-hero h1 { font-size: 4.3rem; }.step-card { min-height: 105px; padding: 10px; }.step-card strong { margin-top: 17px; font-size: .82rem; } }
     </style>
     <div class="landing-nav">
