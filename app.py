@@ -176,10 +176,37 @@ st.markdown("""
     [data-testid="stSidebar"] [data-baseweb="slider"] [role="slider"] { background: #f4755c !important; border-color: #f4755c !important; }
     [data-testid="stSidebar"] [data-baseweb="slider"] div[role="progressbar"] { background: #f4755c !important; }
     [data-testid="stSidebar"] [data-baseweb="slider"] div[role="progressbar"] > div { background: #f4755c !important; }
-    [data-testid="stSidebar"] [data-testid="stCheckbox"] label span,
-    [data-testid="stSidebar"] [data-testid="stRadio"] label p { color: #334155 !important; }
-    button[role="tab"] { color: #64748b !important; font-weight: 600 !important; }
-    button[role="tab"][aria-selected="true"] { color: #0f766e !important; border-bottom-color: #f4755c !important; }
+    /* All dashboard copy stays dark and legible on the white interface. */
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] p,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] li,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stAppViewContainer"] [data-testid="stMarkdownContainer"] h4,
+    [data-testid="stAppViewContainer"] [data-testid="stText"] p,
+    [data-testid="stSidebar"] label p,
+    [data-testid="stSidebar"] label span,
+    [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p { color: #111827 !important; -webkit-text-fill-color: #111827 !important; }
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 { color: #0f172a !important; }
+    [data-testid="stSidebar"] [data-baseweb="select"] > div,
+    [data-testid="stSidebar"] [data-baseweb="input"] > div {
+        background: #ffffff !important; border: 1px solid #94a3b8 !important; color: #111827 !important;
+    }
+    [data-testid="stSidebar"] [data-baseweb="select"] input,
+    [data-testid="stSidebar"] [data-baseweb="select"] input::placeholder,
+    [data-testid="stSidebar"] [data-baseweb="input"] input,
+    [data-testid="stSidebar"] [data-baseweb="input"] input::placeholder { color: #111827 !important; -webkit-text-fill-color: #111827 !important; opacity: 1 !important; }
+    [data-testid="stRadio"] label,
+    [data-testid="stCheckbox"] label { color: #111827 !important; }
+    [data-testid="stRadio"] [data-baseweb="radio"] div[aria-checked="true"] { background-color: #f4755c !important; border-color: #f4755c !important; }
+    [data-testid="stCheckbox"] [data-baseweb="checkbox"] div[aria-checked="true"] { background-color: #f4755c !important; border-color: #f4755c !important; }
+    [role="tab"] { color: #1f2937 !important; font-weight: 700 !important; opacity: 1 !important; }
+    [role="tab"] svg { fill: #0f766e !important; color: #0f766e !important; }
+    [role="tab"][aria-selected="true"] { color: #0f766e !important; border-bottom-color: #f4755c !important; }
+    [data-testid="stAlert"] p { color: #1e3a5f !important; }
+    [data-testid="stDataFrame"] *, [data-testid="stTable"] * { color: #111827 !important; }
 </style>
 """, unsafe_allow_html=True)
 
