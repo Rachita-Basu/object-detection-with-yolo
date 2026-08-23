@@ -1,0 +1,26 @@
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Project-specific weights & caches
+*.pt
+runs/
+sample_shuttle.mp4
+
+# IDEs and editors
+.vscode/
+.idea/
+.project
+.pydevproject
